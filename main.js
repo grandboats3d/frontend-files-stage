@@ -12,9 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
   //Global Elements/Functions
   const { apiOrigin, frontOrigin } = window.appConfig;
 
-  console.log(window.appConfig);
-  console.log(apiOrigin, frontOrigin);
-
   const urlParams = new URLSearchParams(window.location.search);
   const boatId = urlParams.get("id");
 

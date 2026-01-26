@@ -46,7 +46,7 @@
 }
 
 .toggle_component.is-active .toggle_switch_icon {
-  transform: translate(-1.5rem, -50%);
+  transform: translate(1.5rem, -50%);
 }
 
 /*=====          End of Toggle         ======*/
