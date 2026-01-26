@@ -698,7 +698,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Run Global Functions
     globalFuncs();
-    finalizeUISetup(hiddenUIElements);
+    check3DModelLoading();
   }
 
   if (!document.body.hasAttribute("data-no-fetch")) {
@@ -707,8 +707,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // End of Get Boat Data
 
   //3D Model Loading Check
-  function finalizeUISetup(els) {
-    els.forEach((el) => el?.classList.remove("is-hidden"));
+  function finalizeUISetup() {
+    hiddenUIElements.forEach((el) => el?.classList.remove("is-hidden"));
     updateCurrentOptionsStyles();
   }
 
@@ -719,77 +719,31 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    let hasInitialized = false;
-    let has3DLoaded = false;
+    let handled = false;
 
-    function waitForAppLoaded() {
-      if (has3DLoaded) {
-        console.log("3D already loaded, skipping wait");
-        return Promise.resolve("3D is already loaded");
-      }
+    function handleMessage(event) {
+      if (event.data?.type !== "VERGE3D_LOADED") return;
+      if (handled) return;
 
-      return new Promise((resolve) => {
-        console.log("waitForAppLoaded started");
+      handled = true;
+      console.log("3D has loaded");
 
-        let resolved = false;
+      window.removeEventListener("message", handleMessage);
+      clearTimeout(timeoutid);
 
-        function handleMessage(event) {
-          if (event.data?.type === "VERGE3D_LOADED") {
-            console.log("3D has actually loaded");
-            has3DLoaded = true;
-            cleanup();
-            resolved = true;
-            resolve("3D is loaded!");
-            if (document.visibilityState === "visible") {
-              ensureInitialState();
-            }
-          }
-        }
+      console.log("Applying initial state");
+      applyInitialState();
 
-        function cleanup() {
-          window.removeEventListener("message", handleMessage);
-          clearTimeout(timeoutId);
-        }
-
-        window.addEventListener("message", handleMessage);
-
-        const timeoutId = setTimeout(() => {
-          if (resolved) return;
-          console.log("waitForAppLoaded timeout reached");
-          cleanup();
-          resolve("Timeout waiting for 3D to load");
-        }, 60000);
-      });
+      finalizeUISetup();
     }
 
-    function ensureInitialState() {
-      if (hasInitialized || document.visibilityState !== "visible") return;
+    window.addEventListener("message", handleMessage);
 
-      // console.log("Applying initial state (visible tab)");
-      // applyInitialState();
-
-      finalizeUISetup(hiddenUIElements);
-
-      hasInitialized = true;
-    }
-
-    function handleTabActivation() {
-      if (document.visibilityState !== "visible") return;
-
-      console.log("Tab is visible, waiting for 3D loaded");
-
-      waitForAppLoaded().then((msg) => {
-        console.log("waitForAppLoaded resolved:", msg);
-        ensureInitialState();
-      });
-    }
-
-    document.addEventListener("visibilitychange", handleTabActivation);
-    window.addEventListener("focus", handleTabActivation);
-
-    if (document.visibilityState === "visible") {
-      handleTabActivation();
-    }
+    const timeoutid = setTimeout(() => {
+      if (handled) return;
+      console.warn("Timeout waiting for VERGE3D_LOADED");
+      window.removeEventListener("message", handleMessage);
+    }, 60000);
   }
 
   // End of 3D Model Loading Check
