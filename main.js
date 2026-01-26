@@ -31,6 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const summaryForm = pageWrapper.querySelector("#summary-form");
 
+  const hiddenUIElements = document.querySelectorAll(
+    "#features-toggle, #actions-component, #options-component",
+  );
+
   const isDesktop = window.matchMedia("(min-width: 992px)").matches;
   const allMobileQuery = window.matchMedia("(max-width: 767px)");
 
@@ -694,7 +698,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Run Global Functions
     globalFuncs();
-    check3DModelLoading();
+    finalizeUISetup(hiddenUIElements);
   }
 
   if (!document.body.hasAttribute("data-no-fetch")) {
@@ -714,10 +718,6 @@ document.addEventListener("DOMContentLoaded", () => {
       console.warn("iframe not found");
       return;
     }
-
-    const hiddenUIElements = document.querySelectorAll(
-      "#features-toggle, #actions-component, #options-component",
-    );
 
     let hasInitialized = false;
     let has3DLoaded = false;
