@@ -1,0 +1,280 @@
+{
+  "g850": {
+    "waterski_mast": { "code": "2536" },
+    "inside_transom_platform": { "code": "2440" },
+    "swimming_platforms": { "code": "2419" },
+    "bowrailing": { "code": "2535" },
+    "hydraulic_sys": { "code": "2272" },
+    "prem_wheel": { "code": "2282" },
+    "rear_sundeck": { "code": "2650" },
+    "removable_table": { "code": "2417" },
+    "wc_set_toilet": { "code": "2741" },
+    "freshwater_set_shower_sink_faucet": { "code": "2740" },
+    "freshwater_set_shower": { "code": "2743" },
+    "refrigerator_freezer": { "code": "2717" },
+    "anchor_set": { "code": "2739" },
+    "canvas_bimini_top": { "code": "240001" },
+    "rigid_hard_top": { "code": "258001" },
+    "bow_sun_top": { "code": "258002" },
+    "rear_sun_top": { "code": "258003" },
+    "overall_cover": { "code": "2896" },
+    "console_cover": { "code": "2897" },
+    "double_seat_cover": { "code": "2898" },
+    "harbour_cover": { "code": "2899" },
+    "rear_seat_cover": { "code": "289601" },
+    "seadek_soft_anti_skid": { "code": "3506" },
+    "keel_protector_package": { "code": "2947" },
+    "overpressure_valves": { "code": "414601" }
+  },
+
+  "g750": {
+    "swimming_platforms": { "code": "2435" },
+    "bowrailing": { "code": "2541" },
+    "waterski_mast": { "code": "2542" },
+    "el_pack": {
+      "code": "2708",
+      "code_second": "2709"
+    },
+    "hydraulic_sys": { "code": "2273" },
+    "prem_wheel": { "code": "2282" },
+    "bow_sundeck": { "code": "2651" },
+    "rear_sundeck": { "code": "2652" },
+    "removable_table": { "code": "2417" },
+    "wc_set_toilet": { "code": "2748" },
+    "freshwater_set_shower": { "code": "2743" },
+    "freshwater_set_shower_sink_faucet": { "code": "2745" },
+    "refrigerator_freezer": { "code": "2717" },
+    "anchor_set": { "code": "2744" },
+    "canvas_bimini_top": { "code": "240001" },
+    "rigid_hard_top": { "code": "258101" },
+    "bow_sun_top": { "code": "258102" },
+    "rear_sun_top": { "code": "258103" },
+    "overall_cover": { "code": "2997" },
+    "console_cover": { "code": "2998" },
+    "double_seat_cover": { "code": "2999" },
+    "harbour_cover": { "code": "299901" },
+    "rear_seat_cover": { "code": "299701" },
+    "seadek_soft_anti_skid": { "code": "3508" },
+    "keel_protector_package": { "code": "2948" },
+    "tube_protector_package": { "code": "2949" },
+    "overpressure_valves": { "code": "414601" }
+  },
+
+  "g680": {
+    "swimming_platforms": { "code": "2438" },
+    "bowrailing": { "code": "2553" },
+    "waterski_mast": { "code": "2554" },
+    "waterski_classic_roll_bar": { "code": "2538" },
+    "el_pack": {
+      "code": "2710",
+      "code_second": "2711"
+    },
+    "hydraulic_sys": { "code": "2271" },
+    "mech_wheel": { "code": "225601" },
+    "prem_wheel": { "code": "2282" },
+    "bow_sundeck": { "code": "2657" },
+    "rear_sundeck": { "code": "2658" },
+    "removable_table": { "code": "241701" },
+    "freshwater_set_shower": { "code": "2736" },
+    "freshwater_set_shower_sink_faucet": { "code": "273601" },
+    "refrigerator_freezer": { "code": "2717" },
+    "anchor_set": { "code": "2749" },
+    "canvas_bimini_top": { "code": "240002" },
+    "rigid_hard_top": { "code": "258101" },
+    "bow_sun_top": { "code": "258202" },
+    "rear_sun_top": { "code": "258203" },
+    "overall_cover": { "code": "2977" },
+    "console_cover": { "code": "2978" },
+    "double_seat_cover": { "code": "2979" },
+    "harbour_cover": { "code": "297701" },
+    "rear_seat_cover": { "code": "2980" },
+    "seadek_soft_anti_skid": { "code": "3517" },
+    "keel_protector_package": { "code": "2971" },
+    "tube_protector_package": { "code": "2972" },
+    "overpressure_valves": { "code": "414601" }
+  },
+
+  "g580": {
+    "swimming_platforms": { "code": "2423" },
+    "bowrailing": { "code": "2537" },
+    "waterski_mast": { "code": "253901" },
+    "waterski_classic_roll_bar": { "code": "2538" },
+    "el_pack": {
+      "code": "2705",
+      "code_second": "2706"
+    },
+    "hydraulic_sys": { "code": "2270" },
+    "mech_wheel": { "code": "225601" },
+    "prem_wheel": { "code": "2282" },
+    "bow_sundeck-table kit": { "code": "235001" },
+    "bow_sundeck_extension": { "code": "2351" },
+    "freshwater_set_shower": { "code": "2736" },
+    "canvas_bimini_top": { "code": "239501" },
+    "overall_cover": { "code": "7000" },
+    "console_cover": { "code": "7001" },
+    "double_seat_cover": { "code": "7003" },
+    "harbour_cover": { "code": "7002" },
+    "rear_seat_cover": { "code": "700001" },
+    "seadek_soft_anti_skid": { "code": "3504" },
+    "keel_protector_package": { "code": "2962" },
+    "tube_protector_package": { "code": "2963" },
+    "overpressure_valves": { "code": "414601" }
+  },
+
+  "g500": {
+    "swimming_platforms": { "code": "2418" },
+    "bowrailing": { "code": "2533" },
+    "waterski_classic_roll_bar": { "code": "2534" },
+    "el_pack": {
+      "code": "2705",
+      "code_second": "2706"
+    },
+    "prem_wheel": { "code": "2282" },
+    "bow_sundeck": { "code": "2319" },
+    "bow_sundeck_extension": { "code": "231901" },
+    "freshwater_set_shower": { "code": "2736" },
+    "canvas_bimini_top": { "code": "2398" },
+    "overall_cover": { "code": "2892" },
+    "harbour_cover": { "code": "2893" },
+    "seadek_soft_anti_skid": { "code": "3503" },
+    "keel_protector_package": { "code": "2945" },
+    "tube_protector_package": { "code": "2946" },
+    "overpressure_valves": { "code": "414601" }
+  },
+
+ "g420": {
+    "bowrailing": { "code": "2529" },
+    "inbuilt_fuel_system": { "code": "2602" },
+    "towing_mast": { "code": "2515" },
+    "el_pack": {
+      "code": "2707"
+    },
+    "prem_wheel": { "code": "2282" },
+    "bow_sundeck": { "code": "2318" },
+    "canvas_bimini_top": { "code": "2396" },
+    "overall_cover": { "code": "7004" },
+    "harbour_cover": { "code": "7005" },
+    "seadek_soft_anti_skid": { "code": "3507" },
+    "keel_protector_package": { "code": "2967" },
+    "tube_protector_package": { "code": "2968" },
+    "overpressure_valves": { "code": "414601" }
+  },
+
+  "g380": {
+    "inbuilt_fuel_system": { "code": "260501" },
+    "double_console": { "code": "2445" },
+    "side_seat_kit": { "code": "231001" },
+    "towing_mast": { "code": "2515" },
+    "handrail_windshield": { "code": "225001" },
+    "el_pack": {
+      "code": "2707"
+    },
+    "canvas_bimini_top": { "code": "2391" },
+    "overall_cover": { "code": "282401" },
+    "harbour_cover": { "code": "284602" },
+    "seadek_soft_anti_skid": { "code": "3501" },
+    "keel_protector_package": { "code": "2919" },
+    "tube_protector_package": { "code": "2920" },
+    "overpressure_valves": { "code": "4146" }
+  },
+
+
+  "g340": {
+    "inbuilt_fuel_system": { "code": "260501" },
+    "double_console": { "code": "2443" },
+    "side_seat_kit": { "code": "230901" },
+    "towing_mast": { "code": "2515" },
+    "handrail_windshield": { "code": "225001" },
+    "el_pack": {
+      "code": "2707"
+    },
+    "canvas_bimini_top": { "code": "2390" },
+    "rigid_hard_top": { "code": "258201" },
+    "overall_cover": { "code": "282001" },
+    "harbour_cover": { "code": "284701" },
+    "seadek_soft_anti_skid": { "code": "3500" },
+    "keel_protector_package": { "code": "2917" },
+    "tube_protector_package": { "code": "2918" },
+    "overpressure_valves": { "code": "4146" }
+  },
+
+  
+  "d600l": {
+    "swimming_platforms": { "code": "2438" },
+    "bowrailing": { "code": "2553" },
+    "waterski_mast_handrails": { "code": "2543" },
+    "el_pack": {
+      "code": "2705",
+      "code_second": "2706"
+    },
+
+    "hydraulic_sys": { "code": "2271" },
+    "mech_wheel": { "code": "225601" },
+    "prem_wheel": { "code": "2282" },
+    "bow_sundeck": { "code": "2656" },
+    "rear_sundeck": { "code": "2653" },
+    "freshwater_set_shower": { "code": "2736" },
+    "canvas_ttop": { "code": "2547" },
+    "bow_sun_top_ttop": { "code": "280002" },
+    "rear_sun_top_ttop": { "code": "280003" },
+    "overall_cover": { "code": "2800" },
+    "console_cover": { "code": "2995" },
+    "double_seat_cover": { "code": "2996" },
+    "harbour_cover": { "code": "299501" },
+    "seadek_soft_anti_skid": { "code": "3516" },
+    "keel_protector_package": { "code": "2969" },
+    "tube_protector_package": { "code": "2970" },
+    "overpressure_valves": { "code": "414601" }
+  },
+
+
+  "d600a": {
+    "swimming_platforms": { "code": "2438" },
+    "bowrailing": { "code": "2553" },
+    "waterski_mast_handrails": { "code": "2543" },
+    "el_pack": {
+      "code": "2705",
+      "code_second": "2706"
+    },
+    "hydraulic_sys": { "code": "2271" },
+    "mech_wheel": { "code": "225601" },
+    "prem_wheel": { "code": "2282" },
+    "bow_sundeck": { "code": "2656" },
+    "freshwater_set_shower": { "code": "2736" },
+    "canvas_ttop": { "code": "2547" },
+    "bow_sun_top_ttop": { "code": "280002" },
+    "rear_sun_top_ttop": { "code": "280003" },
+    "overall_cover": { "code": "2800" },
+    "console_cover": { "code": "2995" },
+    "sports_seats_cover": { "code": "299601" },
+    "harbour_cover": { "code": "299501" },
+    "seadek_soft_anti_skid": { "code": "351601" },
+    "keel_protector_package": { "code": "2969" },
+    "tube_protector_package": { "code": "2970" },
+    "overpressure_valves": { "code": "414601" }
+  },
+
+  "d600d": {
+    "swimming_platforms": { "code": "2438" },
+    "bowrailing": { "code": "2553" },
+    "waterski_mast_handrails": { "code": "2543" },
+    "el_pack": {
+      "code": "2705",
+      "code_second": "2706"
+    },
+
+    "hydraulic_sys": { "code": "2271" },
+    "mech_wheel": { "code": "225601" },
+    "prem_wheel": { "code": "2282" },
+    "freshwater_set_shower": { "code": "2736" },
+    "canvas_ttop": { "code": "2547" },
+    "overall_cover": { "code": "28001" },
+    "jockey_seats_cover": { "code": "299603" },
+    "harbour_cover": { "code": "299602" },
+    "keel_protector_package": { "code": "2969" },
+    "tube_protector_package": { "code": "2970" },
+    "overpressure_valves": { "code": "414601" }
+  }
+
+
+}

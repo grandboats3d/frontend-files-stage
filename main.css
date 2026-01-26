@@ -1,0 +1,364 @@
+.w-webflow-badge {
+  display: none !important;
+}
+
+/*=============================================
+=                  Nav block                  =
+=============================================*/
+
+.nav_btn.is-active {
+  font-weight: 700;
+  color: var(--_colors---text--main);
+}
+
+.nav_btn.is-active .nav_btn_line {
+  transform: translate(0%);
+}
+
+.nav_component.is-hidden,
+.options_main.is-hidden,
+.options_progress.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-0.5rem);
+}
+
+.options_main.is-hidden .options_item {
+  pointer-events: none;
+}
+
+/*=====        End of Nav block        ======*/
+
+/*=============================================
+  =                    Toggle                   =
+  =============================================*/
+
+.toggle_component:hover .toggle_switch_bg {
+  opacity: 0.25;
+}
+
+.toggle_component.is-active:hover .toggle_switch_bg {
+  opacity: 0.6;
+}
+
+.toggle_component.is-active .toggle_switch_bg {
+  background-color: var(--_colors---brand--main);
+}
+
+.toggle_component.is-active .toggle_switch_icon {
+  transform: translate(-1.5rem, -50%);
+}
+
+/*=====          End of Toggle         ======*/
+
+/*=============================================
+  =                Water Surface                =
+  =============================================*/
+
+.actions_btn.is-active {
+  background-color: var(--_colors---brand--main);
+}
+
+.actions_btn.is-active:hover {
+  background-color: var(--_colors---brand--main-60);
+}
+
+/*=====      End of Water Surface      ======*/
+
+/*=============================================
+  =                Technical Data               =
+  =============================================*/
+
+.technical-data_text > *:nth-child(2n) {
+  font-weight: 600;
+}
+
+@media screen and (max-width: 479px) {
+  .technical-data_text p:nth-child(2n + 1) {
+    padding-left: 0;
+    padding-right: 0.375rem;
+  }
+
+  .technical-data_text p:nth-child(2n) {
+    padding-left: 0.375rem;
+    padding-right: 0;
+  }
+}
+
+/*=====      End of Technical Data     ======*/
+
+/*=============================================
+  =                   Options                   =
+  =============================================*/
+
+.options_nav-btn.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.options_color-btn.is-active {
+  border-color: var(--_colors---brand--main);
+  pointer-events: none;
+}
+
+.options_color-btn.is-disabled .options_color-btn_colors {
+  opacity: 0.5;
+}
+
+.options_color-btn.is-disabled .options_color-btn_text {
+  color: var(--_colors---options--disabled-text);
+}
+
+.options_btn.is-active,
+.options_btn.is-active + .options_btn {
+  background-color: var(--_colors---brand--main);
+}
+
+@media screen and (pointer: fine) {
+  .options_btn:hover + .options_btn {
+    background-color: var(--_colors---options--hover);
+  }
+
+  .options_btn:active + .options_btn {
+    background-color: var(--_colors---options--default);
+  }
+
+  .options_btn.is-active:hover,
+  .options_btn.is-active:hover + .options_btn,
+  .options_btn.is-active + .options_btn:hover {
+    background-color: var(--_colors---brand--main-60);
+  }
+
+  .options_btn.is-active:active,
+  .options_btn.is-active + .options_btn:active {
+    background-color: var(--_colors---brand--main-60);
+  }
+}
+
+.options_btn.is-inactive + .options_btn,
+.options_btn.is-disabled + .options_btn {
+  pointer-events: none;
+  background-image: url(https://cdn.prod.website-files.com/685413654baa638cbdfc35f7/68ad68bd6ee4b6a824f6809f_i-disabled.svg);
+  cursor: default;
+}
+
+@media screen and (max-width: 390px) {
+  .options_controls.is-grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+/*=====         End of Options         ======*/
+
+/*=============================================
+  =                     Form                    =
+  =============================================*/
+
+.form_error-message.is-shown {
+  display: block;
+  opacity: 1;
+  max-height: 2.375rem;
+}
+
+/*=====           End of Form          ======*/
+
+/*=============================================
+  =               Tablets > 991px               =
+  =============================================*/
+
+@media screen and (max-width: 1140px) {
+  body {
+    --header--height: 2.875rem;
+    --container--default: 100%;
+    --horizontal-spaser--default: 0.75rem;
+    --global--side-gap: max(
+      calc(
+        (
+            100vw - var(--container--default) + 2 *
+              var(--horizontal-spaser--default)
+          ) /
+          2
+      ),
+      var(--horizontal-spaser--default)
+    );
+    --nav--top: calc(var(--header--height) + 0.75rem);
+    --popup--padding: 2rem;
+    --_colors---options--hover: var(--_colors---options--bg);
+    --_colors---options--active-hover: var(--_colors---brand--main);
+  }
+
+  .header_component {
+    color: var(--_colors---text--main);
+  }
+
+  .header_content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .header_btn {
+    width: var(--header--height);
+    height: var(--header--height);
+    padding: 0px var(--horizontal-spaser--default);
+    background-color: #0000;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  .brand_component {
+    width: 8.75rem;
+  }
+
+  .header_btn {
+    width: var(--header--height);
+    height: var(--header--height);
+    padding: 0px var(--horizontal-spaser--default);
+    background-color: #0000;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  .header_nav {
+    opacity: 0;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    background-color: #00000059;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+  }
+
+  .nav_component {
+    display: none;
+  }
+
+  .header_nav_link {
+    z-index: var(--_z-index---level--2);
+    background-color: var(--_colors---button--background);
+    text-align: center;
+    text-transform: none;
+    justify-content: center;
+    align-items: center;
+    min-width: 15.3125rem;
+    height: 2.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    position: relative;
+  }
+
+  .header_nav_link.is-tablet {
+    display: flex;
+  }
+
+  .header_nav_overlay {
+    z-index: var(--_z-index---level--1);
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+  }
+
+  .actions_component {
+    flex-flow: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+
+  .actions_btn {
+    margin-top: 0.75rem;
+    margin-right: 0;
+  }
+
+  .options_nav-btn:hover {
+    background-color: transparent;
+  }
+
+  .options_nav-btn:active {
+    background-color: var(--_colors---options--hover);
+  }
+}
+
+/*=====     End of Tablets > 991px     ======*/
+
+/*=============================================
+=               Mobile landscape              =
+=============================================*/
+
+@media (orientation: landscape) and (max-height: 600px) {
+  body {
+    --menu-max-width: 40%;
+  }
+
+  .features-toggle {
+    top: auto;
+    right: auto;
+    bottom: 0.5rem;
+    left: var(--global--side-gap);
+  }
+
+  .toggle_component {
+    flex-direction: row-reverse;
+  }
+
+  .toggle_caption {
+    margin-right: auto;
+    margin-left: 0.3125rem;
+  }
+
+  .options_component {
+    --group-height: calc(5.5 * (0.125rem + 1.875rem));
+    /* gap + item height */
+    --group-max-height: calc(90svh - var(--header--height) - 2 * 2.5rem);
+    /* options title and footer height */
+
+    right: var(--global--side-gap);
+    transform: translate(0%);
+    max-width: var(--menu-max-width);
+  }
+
+  .options_controls.is-options,
+  .options_controls_wrapper {
+    overflow: auto;
+    max-height: min(var(--group-height), var(--group-max-height));
+    /* gap + item height */
+  }
+
+  .options_controls.is-grid {
+    grid-template-columns: auto;
+  }
+
+  .options_color-btn {
+    grid-template-columns: 1fr 1.25fr;
+    grid-template-rows: auto;
+    height: 1.875rem;
+  }
+
+  .options_color-btn.is-empty,
+  .actions_component {
+    display: none;
+  }
+
+  .options_btn {
+    padding-left: 0.5rem;
+  }
+
+  .model_component {
+    width: calc(100% - var(--menu-max-width));
+  }
+}
+
+/*=====     End of Mobile landscape    ======*/
