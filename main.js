@@ -10,8 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // End of GSAP Defaults
 
   //Global Elements/Functions
-  const apiUrl = "https://js.backend-stage.grandboats.com/api";
-  const frontendUrl = "https://grandboats3d.github.io/frontend-files-stage";
+  const { apiUrl, frontendUrl } = window.appConfig;
 
   const urlParams = new URLSearchParams(window.location.search);
   const boatId = urlParams.get("id");
