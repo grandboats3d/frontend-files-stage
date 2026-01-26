@@ -10,7 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // End of GSAP Defaults
 
   //Global Elements/Functions
-  const { apiUrl, frontendUrl } = window.appConfig;
+  const { apiOrigin, frontOrigin } = window.appConfig;
+
+  console.log(window.appConfig);
+  console.log(apiOrigin, frontOrigin);
 
   const urlParams = new URLSearchParams(window.location.search);
   const boatId = urlParams.get("id");
@@ -144,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    const response = await fetch(`${apiUrl}/cms/boats/${boatId}`, {
+    const response = await fetch(`${apiOrigin}/cms/boats/${boatId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -813,7 +816,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return Promise.resolve(parsed[boatId] || null);
     }
 
-    return fetch(`${frontendUrl}/boat-options-codes.json`)
+    return fetch(`${frontOrigin}/boat-options-codes.json`)
       .then((res) => res.json())
       .then((data) => {
         sessionStorage.setItem(storageKey, JSON.stringify(data));
@@ -1655,7 +1658,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // End of Options
 
   // Countries Select
-  fetch(`${frontendUrl}/countries.json`)
+  fetch(`${frontOrigin}/countries.json`)
     .then((response) => {
       if (!response.ok) throw new Error("Network response was not ok");
       return response.json();
@@ -1809,7 +1812,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const plainData = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch(`${apiUrl}/cms/boats/send-info`, {
+      const response = await fetch(`${apiOrigin}/cms/boats/send-info`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(plainData),
