@@ -698,7 +698,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Run Global Functions
     globalFuncs();
-    check3DModelLoading();
+    //check3DModelLoading();
+    finalizeUISetup();
   }
 
   if (!document.body.hasAttribute("data-no-fetch")) {
