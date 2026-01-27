@@ -1063,7 +1063,8 @@ a {
   display: flex;
 }
 
-.success-message_component {
+.success-message_thx {
+  width: 100%;
   max-width: 32ch;
 }
 
