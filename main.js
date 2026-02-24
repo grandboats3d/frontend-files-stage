@@ -125,6 +125,36 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  async function captureScreenshot({
+    iframeEl,
+    quality = 0.85,
+    background = "#F6F6F6",
+    maxWidth = 960,
+  } = {}) {
+    const doc = iframeEl?.contentDocument;
+    const glCanvas = doc?.querySelector("canvas");
+    if (!glCanvas) throw new Error("Canvas not found inside iframe");
+
+    const img = new Image();
+    img.src = glCanvas.toDataURL("image/png");
+    await img.decode();
+
+    const targetW = Math.min(img.width, maxWidth);
+    const targetH = Math.round(img.height * (targetW / img.width));
+
+    const out = document.createElement("canvas");
+    out.width = targetW;
+    out.height = targetH;
+
+    const ctx = out.getContext("2d");
+    ctx.fillStyle = background;
+    ctx.fillRect(0, 0, targetW, targetH);
+
+    ctx.drawImage(img, 0, 0, targetW, targetH);
+
+    return out.toDataURL("image/jpeg", quality);
+  }
   // End of Global Elements/Functions
 
   // Get Boat Data
@@ -231,6 +261,15 @@ document.addEventListener("DOMContentLoaded", () => {
         a.className = "header_nav_link";
         a.textContent = text;
         fragment.appendChild(a);
+
+        if (summaryForm && textKey === "model-details-text") {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = "model";
+          input.value = text;
+
+          summaryForm.prepend(input);
+        }
       }
     });
 
@@ -262,6 +301,25 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
 
       pageWrapper.appendChild(popup);
+
+      if (summaryForm) {
+        const doc = new DOMParser().parseFromString(technicalData, "text/html");
+        const ps = doc.querySelectorAll("p");
+
+        const items = [];
+        for (let i = 0; i + 1 < ps.length; i += 2) {
+          const label = (ps[i].textContent || "").trim();
+          const value = (ps[i + 1].textContent || "").trim();
+          if (label && value) items.push({ label, value });
+        }
+
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "characteristics";
+        input.value = JSON.stringify(items);
+
+        summaryForm.prepend(input);
+      }
     }
 
     // Add Color
@@ -1732,14 +1790,21 @@ document.addEventListener("DOMContentLoaded", () => {
   // Form Submit
   document
     .getElementById("form-open-modal-btn")
-    .addEventListener("click", () => {
+    ?.addEventListener("click", async () => {
       const linkInput = document.querySelector('input[name="link"]');
       const screenInput = document.querySelector('input[name="screen"]');
-      if (linkInput) {
-        linkInput.value = window.location.href;
-      }
-      if (screenInput) {
-        screenInput.value = "placeholder";
+
+      if (linkInput) linkInput.value = window.location.href;
+      if (!screenInput) return;
+
+      screenInput.value = "";
+
+      try {
+        const dataUrl = await captureScreenshot({ iframeEl: modelIframe });
+        screenInput.value = dataUrl;
+      } catch (e) {
+        console.warn("Screenshot failed:", e);
+        screenInput.value = "";
       }
     });
 
