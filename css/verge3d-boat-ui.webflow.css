@@ -172,7 +172,7 @@
   --_colors---button--background-hover: var(--_colors---grayscale--gainsboro);
   --_colors---button--background-active: var(--_colors---grayscale--silver);
   --_z-index---components--popup: 300;
-  --popup--padding: 4rem;
+  --popup--padding: 2rem;
   --_colors---grayscale--black: #000;
   --popup--vertical-padding\<deleted\|variable-ca2616b7-f3ac-ef0e-787b-b77ed507d3c3\>: 3rem;
   --_colors---background--tertiary: var(--_colors---grayscale--dr-white);
@@ -525,12 +525,6 @@ a {
 }
 
 .popup_slot {
-  max-height: calc(
-    100svh - 2 *
-      var(
-        --popup--vertical-padding\<deleted\|variable-ca2616b7-f3ac-ef0e-787b-b77ed507d3c3\>
-      )
-  );
   max-width: calc(100vw - var(--popup--padding));
   justify-content: center;
   align-items: center;
@@ -940,15 +934,15 @@ a {
 }
 
 .form_component {
-  grid-column-gap: 1.5rem;
-  grid-row-gap: 1.5rem;
+  grid-column-gap: 1.25rem;
+  grid-row-gap: 1.25rem;
   background-color: var(--_colors---background--tertiary);
   grid-template-rows: auto;
   grid-template-columns: 1fr;
   grid-auto-columns: 1fr;
   width: 30rem;
   max-width: 100%;
-  padding: 3rem 1.875rem 1.875rem;
+  padding: 1.875rem;
   display: grid;
 }
 
