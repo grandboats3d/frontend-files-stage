@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function captureScreenshot({
     iframeEl,
     quality = 0.85,
-    background = "#F6F6F6",
+    background = "#fff",
     maxWidth = 960,
   } = {}) {
     const doc = iframeEl?.contentDocument;
@@ -756,8 +756,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Run Global Functions
     globalFuncs();
-    //check3DModelLoading();
-    finalizeUISetup();
+    check3DModelLoading();
   }
 
   if (!document.body.hasAttribute("data-no-fetch")) {
@@ -848,7 +847,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (
         currentId &&
         !currentId.startsWith("d_") &&
-        !currentId.startsWith("e_")
+        !currentId.startsWith("e_") &&
+        currentId !== "tube_color_off_white_hypalon" &&
+        currentId !== "bowrailing"
       ) {
         el.id = "d_" + currentId;
       }
@@ -1753,18 +1754,36 @@ document.addEventListener("DOMContentLoaded", () => {
         if (key !== "id") {
           if (key === "options") {
             value.split("-").forEach((opt) => {
-              const btn = document.querySelector(
+              let btn = document.querySelector(
                 `[data-option-btn][data-code="${opt}"][id^="d_"]`,
               );
 
+              if (btn === null) {
+                btn = document.querySelector(
+                  `[data-option-btn][data-code="${opt}"]`,
+                );
+              }
+
               btn?.click();
+              console.log("click");
+              console.log(btn);
+              console.log(" ");
             });
           } else {
-            const btn = document.querySelector(
+            let btn = document.querySelector(
               `[data-field-name="${key}"][data-value="${value}"][id^="d_"]`,
             );
 
+            if (btn === null) {
+              btn = document.querySelector(
+                `[data-field-name="${key}"][data-value="${value}"]`,
+              );
+            }
+
             btn?.click();
+            console.log("click");
+            console.log(btn);
+            console.log(" ");
           }
         }
       });
@@ -1775,11 +1794,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (Array.isArray(initialColorsAndOptions)) {
         initialColorsAndOptions.forEach((value) => {
-          const btn = document.querySelector(
+          let btn = document.querySelector(
             `[data-option-btn][id="d_${value}"]`,
           );
 
+          if (btn === null) {
+            btn = document.querySelector(`[data-option-btn][id="${value}"]`);
+          }
+
           btn?.click();
+          console.log("click");
+          console.log(btn);
+          console.log(" ");
         });
       }
     }
