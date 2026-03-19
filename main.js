@@ -1911,7 +1911,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         formData.delete("screen");
       }
-    }
+    }}
 
     const plainData = Object.fromEntries(formData.entries());
 
