@@ -1993,6 +1993,32 @@ document.addEventListener("DOMContentLoaded", () => {
     
       return null; // або "" або взагалі видалити поле
     }
+    
+
+    if (formData.has("screen")) {
+      let screen = formData.get("screen");
+    
+      // якщо це File/Blob → конвертуємо в base64
+      if (screen instanceof File || screen instanceof Blob) {
+        screen = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.readAsDataURL(screen);
+        });
+      }
+    
+      // якщо це string (base64)
+      if (typeof screen === "string") {
+        if (screen.length > 50000) {
+          screen = await compressToLimit(screen, 50000);
+        }
+
+       if (screen) {
+          formData.set("screen", screen);
+        } else {
+          formData.delete("screen");
+        }
+    }}
 
     
     const plainData = Object.fromEntries(formData.entries());
