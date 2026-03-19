@@ -1842,7 +1842,7 @@ document.addEventListener("DOMContentLoaded", () => {
     '[data-popup-open="form-success"]',
   );
 
-  form.addEventListener("submit", async (e) => {
+  /*form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     if (!form.reportValidity()) return;
@@ -1946,9 +1946,90 @@ document.addEventListener("DOMContentLoaded", () => {
         submitBtn.disabled = false;
       }, popupDuration * 1000);
     }
-  });
+  });*/
   // End of Form Submit
 
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (!form.reportValidity()) return;
+
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = "Sending...";
+    submitBtn.disabled = true;
+
+    const formData = new FormData(form);
+
+    async function compressToLimit(base64, maxLength = 50000) {
+      let quality = 0.8;
+      let maxWidth = 1200;
+      let maxHeight = 1200;
+    
+      while (quality > 0.1) {
+        const compressed = await compressImage(base64, {
+          maxWidth,
+          maxHeight,
+          quality
+        });
+    
+        console.log("try:", quality, maxWidth, compressed.length);
+    
+        if (compressed.length <= maxLength) {
+          return compressed;
+        }
+    
+        // 🔽 спочатку зменшуємо якість
+        if (quality > 0.3) {
+          quality -= 0.1;
+        } else {
+          // 🔽 потім починаємо зменшувати розмір
+          maxWidth *= 0.8;
+          maxHeight *= 0.8;
+        }
+      }
+    
+      // ❗ ФІНАЛЬНИЙ fail-safe
+      console.warn("Image too large, dropping");
+    
+      return null; // або "" або взагалі видалити поле
+    }
+
+    
+    const plainData = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch(`${apiOrigin}/cms/boats/send-info`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(plainData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        popupClose.click();
+        setTimeout(() => {
+          successTrigger.click();
+          form.reset();
+        }, popupDuration * 500);
+      } else {
+        console.error("Server error:", result);
+        error.classList.add("is-shown");
+        setTimeout(() => {
+          error.classList.remove("is-shown");
+        }, 5000);
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+    } finally {
+      setTimeout(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }, popupDuration * 1000);
+    }
+  });
+  // End of Form Submit
+  
   // Disabling features before click
   let skipNextClick = false;
   const checkFeaturesElements = document.querySelectorAll(
