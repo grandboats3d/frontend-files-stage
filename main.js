@@ -1854,6 +1854,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const formData = new FormData(form);
     const plainData = Object.fromEntries(formData.entries());
 
+    async function compressToLimit(base64, maxLength = 50000) {
+      let quality = 0.8;
+    
+      while (quality > 0.1) {
+        const compressed = await compressImage(base64, {
+          maxWidth: 800,
+          maxHeight: 800,
+          quality
+        });
+    
+        if (compressed.length <= maxLength) {
+          return compressed;
+        }
+    
+        quality -= 0.1;
+      }
+    
+      return base64; // fallback
+    }
+    
+    if (plainData.screen && plainData.screen.length > 50000) {
+      plainData.screen = await compressToLimit(plainData.screen);
+    }
+
     try {
       const response = await fetch(`${apiOrigin}/cms/boats/send-info`, {
         method: "POST",
