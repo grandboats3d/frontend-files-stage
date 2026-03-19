@@ -1855,22 +1855,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function compressToLimit(base64, maxLength = 50000) {
       let quality = 0.8;
+      let maxWidth = 1200;
+      let maxHeight = 1200;
     
       while (quality > 0.1) {
         const compressed = await compressImage(base64, {
-          maxWidth: 800,
-          maxHeight: 800,
+          maxWidth,
+          maxHeight,
           quality
         });
+    
+        console.log("try:", quality, maxWidth, compressed.length);
     
         if (compressed.length <= maxLength) {
           return compressed;
         }
     
-        quality -= 0.1;
+        // 🔽 спочатку зменшуємо якість
+        if (quality > 0.3) {
+          quality -= 0.1;
+        } else {
+          // 🔽 потім починаємо зменшувати розмір
+          maxWidth *= 0.8;
+          maxHeight *= 0.8;
+        }
       }
     
-      return base64; // fallback
+      // ❗ ФІНАЛЬНИЙ fail-safe
+      console.warn("Image too large, dropping");
+    
+      return null; // або "" або взагалі видалити поле
     }
 
     
@@ -1892,7 +1906,11 @@ document.addEventListener("DOMContentLoaded", () => {
           screen = await compressToLimit(screen, 50000);
       }
 
-      formData.set("screen", screen);
+     if (screen) {
+        formData.set("screen", screen);
+      } else {
+        formData.delete("screen");
+      }
     }
 
     const plainData = Object.fromEntries(formData.entries());
