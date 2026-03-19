@@ -1960,6 +1960,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const formData = new FormData(form);
 
+    async function compressImage(base64, {
+  maxWidth = 800,
+  maxHeight = 800,
+  quality = 0.7
+} = {}) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+
+    img.onload = () => {
+      let { width, height } = img;
+
+      // 🔽 зменшуємо пропорційно
+      if (width > maxWidth || height > maxHeight) {
+        const ratio = Math.min(maxWidth / width, maxHeight / height);
+        width = width * ratio;
+        height = height * ratio;
+      }
+
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+
+      // 🔽 стискаємо
+      const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
+
+      resolve(compressedBase64);
+    };
+
+    img.onerror = reject;
+    img.src = base64;
+  });
+}
+
     async function compressToLimit(base64, maxLength = 50000) {
       let quality = 0.8;
       let maxWidth = 1200;
