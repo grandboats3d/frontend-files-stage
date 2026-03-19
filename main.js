@@ -1852,7 +1852,6 @@ document.addEventListener("DOMContentLoaded", () => {
     submitBtn.disabled = true;
 
     const formData = new FormData(form);
-    const plainData = Object.fromEntries(formData.entries());
 
     async function compressToLimit(base64, maxLength = 50000) {
       let quality = 0.8;
@@ -1874,19 +1873,29 @@ document.addEventListener("DOMContentLoaded", () => {
       return base64; // fallback
     }
 
-    if (plainData.screen) {
-      if (plainData.screen instanceof File || plainData.screen instanceof Blob) {
-        plainData.screen = await new Promise((resolve) => {
+    
+    if (formData.has("screen")) {
+      let screen = formData.get("screen");
+    
+      // якщо це File/Blob → конвертуємо в base64
+      if (screen instanceof File || screen instanceof Blob) {
+        screen = await new Promise((resolve) => {
           const reader = new FileReader();
           reader.onloadend = () => resolve(reader.result);
-          reader.readAsDataURL(plainData.screen);
+          reader.readAsDataURL(screen);
         });
       }
     
-      if (typeof plainData.screen === "string" && plainData.screen.length > 50000) {
-        plainData.screen = await compressToLimit(plainData.screen);
+      // якщо це string (base64)
+      if (typeof screen === "string") {
+        if (screen.length > 50000) {
+          screen = await compressToLimit(screen, 50000);
       }
+
+      formData.set("screen", screen);
     }
+
+    const plainData = Object.fromEntries(formData.entries());
 
 
     try {
