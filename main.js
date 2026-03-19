@@ -1873,10 +1873,21 @@ document.addEventListener("DOMContentLoaded", () => {
     
       return base64; // fallback
     }
+
+    if (plainData.screen) {
+      if (plainData.screen instanceof File || plainData.screen instanceof Blob) {
+        plainData.screen = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.readAsDataURL(plainData.screen);
+        });
+      }
     
-    if (plainData.screen && plainData.screen.length > 50000) {
-      plainData.screen = await compressToLimit(plainData.screen);
+      if (typeof plainData.screen === "string" && plainData.screen.length > 50000) {
+        plainData.screen = await compressToLimit(plainData.screen);
+      }
     }
+
 
     try {
       const response = await fetch(`${apiOrigin}/cms/boats/send-info`, {
