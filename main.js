@@ -379,26 +379,24 @@ document.addEventListener("DOMContentLoaded", () => {
         button.dataset["3dAction"] = "";
         button.dataset.fieldName = valueFieldName;
         button.dataset.value = `${groupName}: ${color["color-name"]}`;
-        button.id = `${color["color-id"]}`;
+        button.id = `${color["color-id"] || ""}`;
 
         const deactivateColors = color["deactivate-colors"];
         if (Array.isArray(deactivateColors) && deactivateColors.length > 0) {
-          deactivateColors.forEach((color) => {
-            const ids = deactivateColors
-              .map((c) => c["color-id"])
-              .filter(Boolean);
+          const ids = deactivateColors
+            .map((c) => c["color-id"])
+            .filter(Boolean);
+          if (ids.length) {
             button.dataset.deactivateColors = ids.join(", ");
-          });
+          }
         }
 
         const relatedOptions = color["related-options"];
         if (Array.isArray(relatedOptions) && relatedOptions.length > 0) {
-          relatedOptions.forEach((color) => {
-            const ids = relatedOptions
-              .map((c) => c["button-id"])
-              .filter(Boolean);
+          const ids = relatedOptions.map((c) => c["button-id"]).filter(Boolean);
+          if (ids.length) {
             button.dataset.relatedOptions = ids.join(", ");
-          });
+          }
         }
 
         const colorWrap = document.createElement("span");
@@ -414,22 +412,18 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           if (color["color-1"]) {
             const color1 = document.createElement("span");
-            if (color["colors-divider"]) {
-              color1.className = "options_color-btn_color-1 with-divider";
-            } else {
-              color1.className = "options_color-btn_color-1";
-            }
+            color1.className = color["colors-divider"]
+              ? "options_color-btn_color-1 with-divider"
+              : "options_color-btn_color-1";
             color1.style.backgroundColor = color["color-1"];
             colorWrap.appendChild(color1);
           }
 
           if (color["color-2"]) {
             const color2 = document.createElement("span");
-            if (color["colors-divider"]) {
-              color2.className = "options_color-btn_color-2 with-divider";
-            } else {
-              color2.className = "options_color-btn_color-2";
-            }
+            color2.className = color["colors-divider"]
+              ? "options_color-btn_color-2 with-divider"
+              : "options_color-btn_color-2";
             color2.style.backgroundColor = color["color-2"];
             colorWrap.appendChild(color2);
           }
@@ -459,6 +453,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const total = colorsArray.length;
       const divisor = window.innerWidth < 390 ? 5 : 6;
       const remainder = total % divisor;
+
       if (remainder !== 0) {
         const fillersNeeded = divisor - remainder;
         for (let i = 0; i < fillersNeeded; i++) {
@@ -471,106 +466,98 @@ document.addEventListener("DOMContentLoaded", () => {
       return controls;
     }
 
-    optionItemsData.forEach(
-      (
-        [titleKey, subTitleOneKey, colorsOneKey, subTitleTwoKey, colorsTwoKey],
-        index,
-      ) => {
-        const title = boatData[titleKey];
-        const subTitleOne = boatData[subTitleOneKey];
-        const colorsOne = boatData[colorsOneKey];
-        const subTitleTwo = boatData[subTitleTwoKey];
-        const colorsTwo = boatData[colorsTwoKey];
+    optionItemsData.forEach((groupData, index) => {
+      const [titleKey, ...restKeys] = groupData;
+      const title = boatData[titleKey];
 
-        // Точна перевірка наявності контенту для групи
-        const hasContent =
-          title ||
-          (subTitleOne && subTitleOne.trim()) ||
-          (Array.isArray(colorsOne) && colorsOne.length > 0) ||
-          (subTitleTwo && subTitleTwo.trim()) ||
-          (Array.isArray(colorsTwo) && colorsTwo.length > 0);
+      const groups = [];
 
-        if (hasContent) {
-          const item = document.createElement("div");
-          item.dataset.optionsItem = "";
-          item.className = "options_item";
+      for (let i = 0; i < restKeys.length; i += 2) {
+        const subTitleKey = restKeys[i];
+        const colorsKey = restKeys[i + 1];
 
-          if (index === 0) {
-            item.classList.add("is-active");
-          }
+        if (!subTitleKey || !colorsKey) continue;
 
-          let wrapper;
+        const subTitle = boatData[subTitleKey];
+        const colors = boatData[colorsKey];
 
-          if (title) {
-            const h2 = document.createElement("h2");
-            h2.className = "options_title is-main";
-            h2.innerHTML = title;
-            item.appendChild(h2);
+        const hasGroupContent =
+          (subTitle && subTitle.trim()) ||
+          (Array.isArray(colors) && colors.length > 0);
 
-            const button = document.createElement("button");
-            button.type = "button";
-            button.dataset.navBtn = "";
-            button.className = "nav_btn";
-
-            if (index === 0) {
-              button.classList.add("is-active");
-            }
-
-            button.innerHTML = `
-                            <span class="nav_btn_caption-visible">${title}</span>
-                            <span class="nav_btn_caption-base">${title}</span>
-                            <span class="nav_btn_line"></span>
-                        `;
-
-            colorNavFragment.appendChild(button);
-
-            wrapper = document.createElement("div");
-            wrapper.className = "options_controls_wrapper";
-            item.appendChild(wrapper);
-          }
-
-          if (subTitleOne) {
-            const h3 = document.createElement("h3");
-            h3.className = "options_title";
-            h3.textContent = subTitleOne;
-            wrapper.appendChild(h3);
-          }
-
-          if (Array.isArray(colorsOne) && colorsOne.length > 0) {
-            const groupNameOne = subTitleOne
-              ? title + " | " + subTitleOne
-              : title;
-            const controls = renderColorControls(
-              colorsOne,
-              groupNameOne,
-              index + 1,
-              1,
-            );
-            wrapper.appendChild(controls);
-          }
-
-          if (subTitleTwo) {
-            const h3 = document.createElement("h3");
-            h3.className = "options_title";
-            h3.textContent = subTitleTwo;
-            wrapper.appendChild(h3);
-          }
-
-          if (Array.isArray(colorsTwo) && colorsTwo.length > 0) {
-            const groupNameTwo = subTitleTwo ? title + " | " + subTitleTwo : "";
-            const controls = renderColorControls(
-              colorsTwo,
-              groupNameTwo,
-              index + 1,
-              2,
-            );
-            wrapper.appendChild(controls);
-          }
-
-          colorOptionsFragment.appendChild(item);
+        if (hasGroupContent) {
+          groups.push({
+            subTitle,
+            colors,
+            subgroupIndex: groups.length + 1,
+          });
         }
-      },
-    );
+      }
+
+      const hasContent = title || groups.length > 0;
+
+      if (!hasContent) return;
+
+      const item = document.createElement("div");
+      item.dataset.optionsItem = "";
+      item.className = "options_item";
+
+      if (index === 0) {
+        item.classList.add("is-active");
+      }
+
+      let wrapper = null;
+
+      if (title) {
+        const h2 = document.createElement("h2");
+        h2.className = "options_title is-main";
+        h2.innerHTML = title;
+        item.appendChild(h2);
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.dataset.navBtn = "";
+        button.className = "nav_btn";
+
+        if (index === 0) {
+          button.classList.add("is-active");
+        }
+
+        button.innerHTML = `
+          <span class="nav_btn_caption-visible">${title}</span>
+          <span class="nav_btn_caption-base">${title}</span>
+          <span class="nav_btn_line"></span>
+        `;
+
+        colorNavFragment.appendChild(button);
+
+        wrapper = document.createElement("div");
+        wrapper.className = "options_controls_wrapper";
+        item.appendChild(wrapper);
+      }
+
+      groups.forEach(({ subTitle, colors, subgroupIndex }) => {
+        if (subTitle) {
+          const h3 = document.createElement("h3");
+          h3.className = "options_title";
+          h3.textContent = subTitle;
+          wrapper.appendChild(h3);
+        }
+
+        if (Array.isArray(colors) && colors.length > 0) {
+          const groupName = subTitle ? `${title} | ${subTitle}` : title;
+          const controls = renderColorControls(
+            colors,
+            groupName,
+            index + 1,
+            subgroupIndex,
+          );
+          wrapper.appendChild(controls);
+        }
+      });
+
+      colorOptionsFragment.appendChild(item);
+    });
 
     navComponent.insertBefore(colorNavFragment, navComponent.firstChild);
     optionItems.insertBefore(colorOptionsFragment, optionItems.firstChild);
