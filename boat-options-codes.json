@@ -274,7 +274,28 @@
     "keel_protector_package": { "code": "2969" },
     "tube_protector_package": { "code": "2970" },
     "overpressure_valves": { "code": "414601" }
+  },
+  
+  "g980": {
+    "waterski_mast": "2555",
+    "bowrailing": "2556",
+    "prem_wheel": "2282",
+    "removable_rear_suntable": "2660",
+    "wc_set_toilet": "2753",
+    "freshwater_set_shower_sink_faucet": "2750",
+    "refrigerator_freezer_1unit": "2717",
+    "refrigerator_freezer_2unit": "2x2717",
+    "anchor_set": "2751",
+    "bow_manoeuvring": "2752",
+    "rigid_hard_top": "2583",
+    "bow_sun_top": "258302",
+    "rear_sun_top": "258303",
+    "overall_cover": "2981",
+    "console_cover": "2982",
+    "double_seat_cover": "2983",
+    "harbour_cover": "298101",
+    "rear_seat_cover": "2984",
+    "overpressure_valves": "414602"
   }
-
 
 }
