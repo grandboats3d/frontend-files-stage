@@ -296,6 +296,45 @@
     "harbour_cover": { "code": "298101" },
     "rear_seat_cover": { "code": "2984" },
     "overpressure_valves": { "code": "414602" }
+  },
+
+  "d950-dive": {
+    "suspension_sports_seat": { "code": "230005" },
+    "double_seat_leaning": { "code": "230007" },
+    "diving_platform_wladder": { "code": "255701" },
+    "waterski_mast_d950_handrails": { "code": "2544" },
+    "swimming_platforms_1engine": { "code": "243701" },
+    "swimming_platforms_2engines": { "code": "2437" },
+    "bowrailing": { "code": "2548" },
+    "prem_wheel": { "code": "2282" },
+    "canvas_ttop": { "code": "2549" },
+    "overpressure_valves": { "code": "414602" }
+  },
+
+  "d950adventure": {
+"suspension_sports_seat": { "code": "230005" },
+    "double_seat_leaning": { "code": "230007" },
+    "waterski_mast_d950_handrails": { "code": "2544" },
+    "swimming_platforms_1engine": { "code": "243701" },
+    "swimming_platforms_2engines": { "code": "2437" },
+    "bowrailing": { "code": "2548" },
+    "prem_wheel": { "code": "2282" },
+    "canvas_ttop": { "code": "2549" },
+    "overpressure_valves": { "code": "414602" }
+  },
+  
+  "d950drive": {
+    "suspension_sports_seat": { "code": "230005" },
+    "double_seat_leaning": { "code": "230007" },
+    "waterski_mast_d950_handrails": { "code": "2544" },
+    "swimming_platforms_1engine": { "code": "243701" },
+    "swimming_platforms_2engines": { "code": "2437" },
+    "bowrailing": { "code": "2548" },
+    "prem_wheel": { "code": "2282" },
+    "canvas_ttop": { "code": "2549" },
+    "jockey_seats_cover": { "code": "279902" },
+    "harbour_cover": { "code": "279901" },
+    "overpressure_valves": { "code": "414602" }
   }
 
 }
