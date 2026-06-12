@@ -357,7 +357,7 @@
     "overpressure_valves": { "code": "4146" }
   },
 
-    "s470s": {
+    "s470ns": {
     "navigation_classic_roll_bar": { "code": "2513" },
     "el_pack": {
       "code": "2704",
