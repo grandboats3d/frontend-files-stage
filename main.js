@@ -646,26 +646,18 @@ document.addEventListener("DOMContentLoaded", () => {
       mainBtn.textContent = title;
 
       if (Array.isArray(filterColors) && filterColors.length > 0) {
-        filterColors.forEach((color) => {
-          const ids = filterColors.map((c) => c["color-id"]).filter(Boolean);
-          mainBtn.dataset.setColor = ids.join(", ");
-        });
+        const ids = filterColors.map((c) => c["color-id"]).filter(Boolean);
+        mainBtn.dataset.setColor = ids.join(", ");
       }
 
       if (Array.isArray(mutualOption) && mutualOption.length > 0) {
-        mutualOption.forEach((option) => {
-          const ids = mutualOption.map((o) => o["button-id"]).filter(Boolean);
-          mainBtn.dataset.mutualOption = ids.join(", ");
-        });
+        const ids = mutualOption.map((o) => o["button-id"]).filter(Boolean);
+        mainBtn.dataset.mutualOption = ids.join(", ");
       }
 
       if (Array.isArray(activatorOption) && activatorOption.length > 0) {
-        activatorOption.forEach((option) => {
-          const ids = activatorOption
-            .map((o) => o["button-id"])
-            .filter(Boolean);
-          mainBtn.dataset.activatorOption = ids.join(", ");
-        });
+        const ids = activatorOption.map((o) => o["button-id"]).filter(Boolean);
+        mainBtn.dataset.activatorOption = ids.join(", ");
         mainBtn.classList.add("is-disabled");
       }
 
@@ -673,19 +665,15 @@ document.addEventListener("DOMContentLoaded", () => {
         Array.isArray(secondCodeActivator) &&
         secondCodeActivator.length > 0
       ) {
-        secondCodeActivator.forEach((option) => {
-          const ids = secondCodeActivator
-            .map((o) => o["button-id"])
-            .filter(Boolean);
-          mainBtn.dataset.secondCodeActivator = ids.join(", ");
-        });
+        const ids = secondCodeActivator
+          .map((o) => o["button-id"])
+          .filter(Boolean);
+        mainBtn.dataset.secondCodeActivator = ids.join(", ");
       }
 
       if (Array.isArray(relatedOpts) && relatedOpts.length > 0) {
-        relatedOpts.forEach((option) => {
-          const ids = relatedOpts.map((o) => o["button-id"]).filter(Boolean);
-          mainBtn.dataset.related = ids.join(", ");
-        });
+        const ids = relatedOpts.map((o) => o["button-id"]).filter(Boolean);
+        mainBtn.dataset.related = ids.join(", ");
       }
 
       const has2d = !!image2d;
