@@ -733,51 +733,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Run Global Functions
     globalFuncs();
-    check3DModelLoading();
+
+    // UI is now built — mark ready and initialize if 3D already loaded.
+    uiReady = true;
+    maybeInitialize();
   }
 
   if (!document.body.hasAttribute("data-no-fetch")) {
+    // Attach the VERGE3D_LOADED listener BEFORE the fetch, so a 3D model that
+    // finishes loading before the (cold) fetch completes can never be missed.
+    setup3DModelListener();
     fetchDataSequentially();
   }
   // End of Get Boat Data
 
   //3D Model Loading Check
+  let vergeLoaded = false;
+  let uiReady = false;
+  let initialized = false;
+
   function finalizeUISetup() {
     hiddenUIElements.forEach((el) => el?.classList.remove("is-hidden"));
     updateCurrentOptionsStyles();
   }
 
-  function check3DModelLoading() {
-    const iframe = document.querySelector(".model_component");
-    if (!iframe) {
-      console.warn("iframe not found");
-      return;
-    }
+  // Runs once, only after BOTH the 3D model has loaded and the UI is built.
+  function maybeInitialize() {
+    if (initialized || !vergeLoaded || !uiReady) return;
+    initialized = true;
+    applyInitialState();
+    finalizeUISetup();
+  }
 
-    let handled = false;
-
-    function handleMessage(event) {
+  function setup3DModelListener() {
+    window.addEventListener("message", (event) => {
       if (event.data?.type !== "VERGE3D_LOADED") return;
-      if (handled) return;
+      vergeLoaded = true;
+      maybeInitialize();
+    });
 
-      handled = true;
-      console.log("3D has loaded");
-
-      window.removeEventListener("message", handleMessage);
-      clearTimeout(timeoutid);
-
-      console.log("Applying initial state");
-      applyInitialState();
-
-      finalizeUISetup();
-    }
-
-    window.addEventListener("message", handleMessage);
-
-    const timeoutid = setTimeout(() => {
-      if (handled) return;
-      console.warn("Timeout waiting for VERGE3D_LOADED");
-      window.removeEventListener("message", handleMessage);
+    setTimeout(() => {
+      if (!vergeLoaded) {
+        console.warn("Timeout waiting for VERGE3D_LOADED");
+      }
     }, 60000);
   }
 
