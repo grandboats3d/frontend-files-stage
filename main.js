@@ -799,8 +799,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Nothing to do if the iframe still uses a static `src`, or already started.
     if (!src || modelIframe.getAttribute("src")) return;
     modelIframe.setAttribute("src", src);
-    const buttonCount = document.querySelectorAll("[data-option-btn][id]").length;
-    console.log("3D model started after UI build. Option buttons:", buttonCount);
   }
 
   // End of 3D Model Loading Check
@@ -1469,6 +1467,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let secondCodeActivatorsMap = new Map();
     let relatedOptionsMap = new Map();
 
+    // data-second-code-activator may list several activator ids ("a, b, c").
+    // Split into a clean array of bare ids (works for a single value too).
+    const parseActivatorList = (raw) =>
+      (raw || "")
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+
     optionControls.forEach((controlGroup) => {
       const curOptionWithActivators = controlGroup.querySelectorAll(
         "[data-option-btn][data-second-code-activator]",
@@ -1523,16 +1529,16 @@ document.addEventListener("DOMContentLoaded", () => {
             let fieldValue;
 
             if (clickedButton.dataset.secondCodeActivator) {
-              const activatorValue = clickedButton.dataset.secondCodeActivator;
-              const targetButton = document.querySelector(
-                `[data-option-btn][data-code][id*="${activatorValue}"]`,
+              // Use the second code if ANY listed activator is currently on.
+              const anyActivatorEnabled = parseActivatorList(
+                clickedButton.dataset.secondCodeActivator,
+              ).some((act) =>
+                document.querySelector(`[data-option-btn][id="e_${act}"]`),
               );
 
-              if (targetButton && targetButton.id.startsWith("e_")) {
-                fieldValue = clickedButton.dataset.valueSecond;
-              } else {
-                fieldValue = clickedButton.dataset.value;
-              }
+              fieldValue = anyActivatorEnabled
+                ? clickedButton.dataset.valueSecond
+                : clickedButton.dataset.value;
             } else {
               fieldValue = clickedButton.dataset.value;
             }
@@ -1589,12 +1595,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     secondCodeActivatorsMap.forEach((value, key) => {
+      const activators = parseActivatorList(key);
       const matchingOptions = document.querySelectorAll(
         "[data-option-btn][data-is-option]",
       );
 
       matchingOptions.forEach((option) => {
-        if (option.id && option.id.includes(key)) {
+        if (option.id && activators.some((act) => option.id.includes(act))) {
           option.dataset.secondCodeActivatorParent = value;
         }
       });
@@ -1611,7 +1618,9 @@ document.addEventListener("DOMContentLoaded", () => {
           document.querySelectorAll(
             "[data-option-btn][data-second-code-activator]",
           ),
-        ).filter((el) => el.dataset.secondCodeActivator === parentKey);
+        ).filter((el) =>
+          parseActivatorList(el.dataset.secondCodeActivator).includes(parentKey),
+        );
 
         matchingOptions.forEach((option) => {
           if (option.id.startsWith("e_")) {
@@ -1619,11 +1628,15 @@ document.addEventListener("DOMContentLoaded", () => {
               `[name="${option.dataset.codeFieldName}"]`,
             );
             if (field) {
-              if (parent.id.startsWith("e_")) {
-                field.value = option.dataset.valueSecond;
-              } else if (parent.id.startsWith("d_")) {
-                field.value = option.dataset.value;
-              }
+              // Re-evaluate ALL activators: second code stays while any is on.
+              const anyActivatorEnabled = parseActivatorList(
+                option.dataset.secondCodeActivator,
+              ).some((act) =>
+                document.querySelector(`[data-option-btn][id="e_${act}"]`),
+              );
+              field.value = anyActivatorEnabled
+                ? option.dataset.valueSecond
+                : option.dataset.value;
             }
           }
         });
@@ -1764,9 +1777,6 @@ document.addEventListener("DOMContentLoaded", () => {
               }
 
               btn?.click();
-              console.log("click");
-              console.log(btn);
-              console.log(" ");
             });
           } else {
             let btn = document.querySelector(
@@ -1780,9 +1790,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             btn?.click();
-            console.log("click");
-            console.log(btn);
-            console.log(" ");
           }
         }
       });
@@ -1802,9 +1809,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }
 
           btn?.click();
-          console.log("click");
-          console.log(btn);
-          console.log(" ");
         });
       }
     }
@@ -1863,8 +1867,6 @@ document.addEventListener("DOMContentLoaded", () => {
           maxHeight,
           quality
         });
-
-        console.log("try:", quality, maxWidth, compressed.length);
 
         if (compressed.length <= maxLength) {
           return compressed;
@@ -2005,8 +2007,6 @@ document.addEventListener("DOMContentLoaded", () => {
           maxHeight,
           quality,
         });
-
-        console.log("try:", quality, maxWidth, compressed.length);
 
         if (compressed.length <= maxLength) {
           return compressed;
