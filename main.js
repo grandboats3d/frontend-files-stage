@@ -734,8 +734,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Run Global Functions
     globalFuncs();
 
-    // UI is now built — mark ready and initialize if 3D already loaded.
+    // UI is now built — mark ready, start the 3D model (its iframe was held
+    // back via data-src until the option buttons existed), and initialize if
+    // the model already loaded.
     uiReady = true;
+    start3DModel();
     maybeInitialize();
   }
 
@@ -744,6 +747,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // finishes loading before the (cold) fetch completes can never be missed.
     setup3DModelListener();
     fetchDataSequentially();
+
+    // Safety net: if the UI build never completes (data error / very slow
+    // fetch), start the 3D anyway so the model isn't blocked forever. On the
+    // happy path the model already started at UI-build time, so this is a no-op.
+    setTimeout(() => {
+      if (!uiReady) start3DModel();
+    }, 30000);
   }
   // End of Get Boat Data
 
@@ -777,6 +787,20 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn("Timeout waiting for VERGE3D_LOADED");
       }
     }, 60000);
+  }
+
+  // Start the 3D model by promoting the iframe's data-src → src. Held back so
+  // the browser does NOT load Verge3D during HTML parse: it must init only
+  // AFTER the option buttons exist with their final d_/e_ ids, otherwise it
+  // binds to a not-yet-built DOM and ignores clicks (the cold-load race).
+  function start3DModel() {
+    if (!modelIframe) return;
+    const src = modelIframe.dataset.src;
+    // Nothing to do if the iframe still uses a static `src`, or already started.
+    if (!src || modelIframe.getAttribute("src")) return;
+    modelIframe.setAttribute("src", src);
+    const buttonCount = document.querySelectorAll("[data-option-btn][id]").length;
+    console.log("3D model started after UI build. Option buttons:", buttonCount);
   }
 
   // End of 3D Model Loading Check
